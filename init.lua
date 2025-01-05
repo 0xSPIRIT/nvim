@@ -69,13 +69,8 @@ local actions = require('telescope.actions')
 
 require('telescope').setup({
     defaults = {
-        vimgrep_arguments = {
-            'rg',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
+        file_ignore_patterns = {
+            ".git"
         },
         pickers = {
             find_files = {

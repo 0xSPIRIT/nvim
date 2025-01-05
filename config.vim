@@ -3,17 +3,15 @@ command W w
 let g:neovide_cursor_animation_length = 0.0
 let g:neovide_scroll_animation_length = 0.07
 
-"colorscheme dosbox-black
-"colorscheme fahrenheit
-"colorscheme ashen
 "set guifont=Cascadia\ Code:h12
-set guifont=Cascadia\ Code:h12
+"set guifont=Cascadia\ Code:h12
 "set guifont=Liberation\ Mono:h12
 "set guifont=Lucida\ Console:h14
 "set guifont=Perfect\ DOS\ VGA\ 437\ Win:h19
+"set guifont=Cascadia\ Code:h12
+set guifont=Consolas:h13
 
 set wrap
-set lbr
 set clipboard=unnamedplus
 set expandtab
 set smartindent
