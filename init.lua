@@ -55,8 +55,10 @@ require("lazy").setup({
         "ficcdaf/ashen.nvim",
         lazy = false,
         priority = 1000,
-    }
-  },
+    },
+    { "rose-pine/neovim", name = "rose-pine" },
+    { 'dasupradyumna/midnight.nvim', lazy = false, priority = 1000 },
+},
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
