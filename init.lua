@@ -16,15 +16,44 @@ vim.o.guicursor = "n-v-c-i:block"
 vim.opt.title = true
 vim.opt.titlestring = "nvim - %t"
 
--- Packages using builtin package manager.
-vim.pack.add({
-  "https://github.com/nvim-lua/plenary.nvim",
-  "https://github.com/vague2k/vague.nvim",
-  "https://github.com/nvim-telescope/telescope.nvim",
-  "https://github.com/FotiadisM/tabset.nvim",
-  "https://github.com/flazz/vim-colorschemes",
-  "https://github.com/pmizio/typescript-tools.nvim",
-});
+-- lazy.nvim bootstrap (stable-friendly)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- important: stable branch
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+
+require("lazy").setup({
+  -- Utility
+  { "nvim-lua/plenary.nvim" },
+
+  -- Colorschemes
+  { "vague2k/vague.nvim" },
+  { "flazz/vim-colorschemes" },
+
+  -- Telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  -- Tab / indent control
+  { "FotiadisM/tabset.nvim" },
+
+  -- TypeScript / LSP
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+})
 
 vim.keymap.set('n', '<C-p>', ':vs<CR><C-w><C-w>')
 vim.keymap.set('n', '<C-S-p>', ':quit<CR>')
