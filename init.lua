@@ -30,10 +30,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 require("lazy").setup({
   -- Utility
   { "nvim-lua/plenary.nvim" },
+
+  -- LSP installer
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+  },
 
   -- Colorschemes
   { "vague2k/vague.nvim" },
@@ -55,6 +60,27 @@ require("lazy").setup({
   },
 })
 
+require("mason").setup()
+
+-- clangd
+vim.lsp.config("clangd", {
+  filetypes = { "c", "cpp", "objc", "objcpp" },
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "--header-insertion=iwyu",
+  },
+  root_markers = {
+    "compile_commands.json",
+    "compile_flags.txt",
+    ".git",
+  },
+})
+
+vim.lsp.enable("clangd")
+
 vim.keymap.set('n', '<C-p>', ':vs<CR><C-w><C-w>')
 vim.keymap.set('n', '<C-S-p>', ':quit<CR>')
 vim.keymap.set('n', '<C-l>', '<C-w><C-w>')
@@ -68,7 +94,10 @@ vim.keymap.set("n", "<CR>", function()
     vim.cmd("w") -- Save the current buffer
 end, { desc = "Save file", silent = true })
 
+vim.keymap.set('n', 'ge', vim.diagnostic.open_float, { noremap = true, silent = true })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { noremap = true, silent = true })
+vim.keymap.set('n', 'gf', vim.lsp.buf.format, { noremap = true, silent = true })
 
 require("typescript-tools").setup {
   settings = {
